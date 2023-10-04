@@ -1,3 +1,5 @@
+package com.warmup;
+
 public class Main {
     public static void main(String[] args) {
         String personName = "John Doe";
