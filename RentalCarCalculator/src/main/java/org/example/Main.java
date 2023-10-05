@@ -86,7 +86,7 @@ public class Main {
         double basicRental = 29.99 * numDays;
 
         //calculations
-        if(age <= 25) {
+        if(age < 25) {
             totalCost = basicRental + optionsCost + underageSurcharge;
             surcharge = underageSurcharge;
         }
