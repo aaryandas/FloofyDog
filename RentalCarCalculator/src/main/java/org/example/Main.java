@@ -14,7 +14,6 @@ public class Main {
         String userResponse;
 
         int age = 0;
-        final double basicRental = 29.99;
         final double underageSurcharge = 29.99 * 0.3;
         double surcharge = 0;
         double optionsCost = 0;
@@ -84,9 +83,10 @@ public class Main {
                 System.out.println("Please enter 'yes' or 'no' as a response");
                 break;
         }
+        double basicRental = 29.99 * numDays;
 
         //calculations
-        if(age >= 25) {
+        if(age <= 25) {
             totalCost = basicRental + optionsCost + underageSurcharge;
             surcharge = underageSurcharge;
         }
