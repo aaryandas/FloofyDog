@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//I like that you created a class to handle anything dealing with reading and writing to a file
+//This is called separation of concerns
 public class TransactionManager {
     public ArrayList<Transaction> transactions = new ArrayList<>();
 
@@ -17,6 +19,7 @@ public class TransactionManager {
         try{
             FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
 
+            //You might want to add an escape character like %n
             String transactionLine = String.format("%s|%s|%s|%f", deposit.getDate(), deposit.getTime(), deposit.getVendor(), deposit.getAmount() );
 
             fileWriter.write(transactionLine);
@@ -30,7 +33,7 @@ public class TransactionManager {
     public void MakePayment(Transaction payment) {
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
-
+            //Ditto
             String transactionLine = String.format("%s|%s|%s|-%f", payment.getDate(), payment.getTime(), payment.getVendor(), payment.getAmount());
 
             fileWriter.write(transactionLine);
