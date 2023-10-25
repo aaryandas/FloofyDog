@@ -1,6 +1,13 @@
 package org.example;
 import java.util.Scanner;
 
+/*
+Overall no major bugs but some small things. I tried to check in a book that wasn't on the checked in books list
+It told me checked in! as a message. It didn't actually check the book in (because it's not on the checked out list)
+but the message could be confusing.
+I did try to checkout books not on the list and couldn't, so that was good.
+Overall solid work, great job breaking things down into methods so it's very readable.
+ */
 
 public class Main {
     static Scanner scnr = new Scanner(System.in);
@@ -141,10 +148,12 @@ public class Main {
                     }
                 }
 
+                //nice
         private static Book[] initializeBooks() {
             Book[] books = new Book[20];
 
-            books[0] = new Book(1, "0446310786", "To Kill a Mockingbird", false, "");
+            //The new constructor makes for less typing since we know isCheckedout is false and checkedOutTo are blank from the beginning
+            books[0] = new Book(1, "0446310786", "To Kill a Mockingbird");
             books[1] = new Book(2, "9780451524935", "1984", false, "");
             books[2] = new Book(3, "9780141439518", "Pride and Prejudice", false, "");
             books[3] = new Book(4, "979-8351145013", "The Great Gatsby", false, "");
