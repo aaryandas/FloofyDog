@@ -1,8 +1,5 @@
 package org.example;
 
-import org.w3c.dom.ls.LSOutput;
-
-import javax.crypto.spec.PSource;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,33 +9,41 @@ import java.util.Scanner;
 
 public class TransactionManager {
     public ArrayList<Transaction> transactions = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
 
-    public void AddDeposit(Transaction deposit){
-        try{
-            FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
+    private void AddDeposit(){
+        System.out.println("Enter the date (yyyy-MM-dd): ");
+        String date = scanner.nextLine();
+        System.out.println("Enter the time (HH:mm:ss): ");
+        String time = scanner.nextLine();
+        System.out.println("Enter the description: ");
+        String description = scanner.nextLine();
+        System.out.println("Enter the vendor: ");
+        String vendor = scanner.nextLine();
+        System.out.println("Enter the amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
 
-            String transactionLine = String.format("%s|%s|%s|%f", deposit.getDate(), deposit.getTime(), deposit.getVendor(), deposit.getAmount() );
-
-            fileWriter.write(transactionLine);
-            fileWriter.close();
-
-        } catch (IOException ex) {
-            System.out.println("Sorry, couldn't add that transaction to the ledger");
-        }
+        transactions.add(new Transaction(date, time, description, vendor, amount));
+        System.out.println("Deposit added successfully!");
     }
 
-    public void MakePayment(Transaction payment) {
-        try {
-            FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
+    private void MakePayment(Transaction payment) {
+        System.out.println("Making Payment");
+        System.out.println("Enter the date (yyyy-MM-dd): ");
+        String date = scanner.nextLine();
+        System.out.println("Enter the time (HH:mm:ss): ");
+        String time = scanner.nextLine();
+        System.out.println("Enter the description: ");
+        String description = scanner.nextLine();
+        System.out.println("Enter the vendor: ");
+        String vendor = scanner.nextLine();
+        System.out.println("Enter the amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
 
-            String transactionLine = String.format("%s|%s|%s|-%f", payment.getDate(), payment.getTime(), payment.getVendor(), payment.getAmount());
-
-            fileWriter.write(transactionLine);
-            fileWriter.close();
-
-        } catch (IOException ex) {
-            System.out.println("Sorry, couldn't add that transaction to the ledger");
-        }
+        transactions.add(new Transaction(date, time, description, vendor, amount));
+        System.out.println("Payment added successfully.");
     }
 
     public ArrayList<Transaction> LoadTransactions(){
@@ -55,7 +60,7 @@ public class TransactionManager {
                 input = scnr.nextLine();
                 String[] rowArray = input.split("\\|");
 
-                Transaction transaction = new Transaction(rowArray[0], rowArray[1], rowArray[2], Double.parseDouble(rowArray[3]));
+                Transaction transaction = new Transaction(rowArray[0], rowArray[1], rowArray[2], rowArray[3], Double.parseDouble(rowArray[4]));
 
                 transactions.add(transaction);
             }
@@ -67,6 +72,5 @@ public class TransactionManager {
 
         return transactions;
     }
-
 
 }
