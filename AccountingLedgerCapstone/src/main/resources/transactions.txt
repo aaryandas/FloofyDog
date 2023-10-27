@@ -1,46 +1,52 @@
-2022-12-15|10:30:34|Fresh Produce Shopping|GreenGrocer|300.0
-2022-10-14|12:13:45|Gourmet Dinner|La Petite Bistro|-800.0
-2023-10-01|08:30:00|Artisanal Bread Purchase|Bread & Beyond|500.00
-2023-10-03|12:15:00|Coffee and Pastry|The Daily Grind|-250.00
-2023-09-15|09:45:00|Farmers' Market Haul|Fresh Harvest|300.00
-2023-09-20|14:20:00|Food Truck Delight|Tasty Tacos|-150.00
-2016-05-14|13:35:00|Grocery Splurge|SuperMart|550.00
-2016-05-17|10:05:00|Catered Luncheon|Feast Catering|-200.00
-2021-05-03|10:10:00|Sushi Night|Sushi Delight|400.00
-2021-05-06|11:55:00|Pizza Party|Pizza Palace|-250.00
-2019-07-05|12:30:00|Bakery Bliss|Sweet Treats|300.00
-2019-07-08|15:10:00|Office Lunch|Cafe Classics|-150.00
-2018-02-11|09:30:00|Bakery Delights|Sugar Rush|600.00
-2018-02-15|16:00:00|Italian Feast|Pasta Paradise|-350.00
-2018-06-27|10:40:00|Food Truck Frenzy|Street Eats|200.00
-2018-06-30|11:25:00|Picnic Supplies|Picnic Pleasures|-100.00
-2022-08-25|08:00:00|Morning Croissants|Cafe Croissant|200.00
-2022-08-30|10:30:00|Steakhouse Dinner|The Steakhouse|-100.00
-2018-06-27|10:40:00|Street Food Festival|Foodie Heaven|200.00
-2018-06-30|11:25:00|Rooftop Dining|Skyline Bistro|-100.00
-2022-11-05|11:00:00|Sunday Brunch|Brunch Bonanza|700.00
-2022-11-10|15:40:00|Catered Office Lunch|Office Eats|-300.00
-2018-06-27|10:40:00|Lunch in the Park|Park Picnics|200.00
-2018-06-30|11:25:00|Thai Cuisine|Taste of Thailand|-100.00
-2019-01-10|08:45:00|Morning Espresso|Espresso Express|700.00
-2019-01-14|13:20:00|Office Catering|Catering Supreme|-300.00
-2022-11-05|11:00:00|Bistro Dinner|Bistro Bites|700.00
-2022-11-10|15:40:00|Cafe Lunch|Cafe Cozy|-300.00
-2021-12-17|13:45:00|Local Market Finds|Market Marvel|600.00
-2021-12-20|16:15:00|Fine Dining|Elegant Eats|-350.00
-2021-05-03|10:10:00|Bakery Treats|Bakery Bliss|400.00
-2021-05-06|11:55:00|Sushi Delight|Sushi Supreme|-250.00
-2020-03-19|09:20:00|Grocery Goodies|Goodness Groceries|550.00
-2020-03-22|14:00:00|Catered Lunch|Lunch Luxe|-200.00
-2019-09-15|09:45:00|Local Market Haul|Market Fresh|300.00
-2019-09-20|14:20:00|Food Truck Adventure|Flavor Fiesta|-150.00
-2016-05-14|13:35:00|Supermarket Splurge|Super Saver|550.00
-2016-05-17|10:05:00|Catered Celebration|Celebrate Catering|-200.00
-2021-05-03|10:10:00|Bakery Delights|Bakery Bliss|400.00
-2021-05-06|11:55:00|Pizza Night|Pizza Perfecto|-250.00
-2019-07-05|12:30:00|Sweets Galore|Sugar Shack|300.00
-2019-07-08|15:10:00|Lunch at Cafe|Cafe Comfort|-150.00
-2018-02-11|09:30:00|Bakery Breakfast|Morning Muffins|600.00
-2018-02-15|16:00:00|Gourmet Dinner|Gourmet Galore|-350.00
-2018-06-27|10:40:00|Street Food Extravaganza|Street Savory|200.00
-2018-06-30|11:25:00|Sushi Delights|Sushi Sensation|-100.00
+2022-12-15|10:30:34|Delicious Pizza|Pizza Place|15.0
+2022-10-14|12:13:45|Burger King Order|Burger King|-8.0
+2023-10-01|08:30:00|Sushi Night|Sushi Delight|50.00
+2023-10-03|12:15:00|Coffee and Croissant|Café Latte|-25.00
+2023-09-15|09:45:00|Farmers' Market Haul|Fresh Harvest|30.00
+2023-09-20|14:20:00|Food Truck Delight|Tasty Tacos|-15.00
+2016-05-14|13:35:00|Ice Cream Treat|Sweet Scoops|15.00
+2016-05-17|10:05:00|Gourmet Sandwich|The Sandwich Spot|-20.00
+2021-05-03|10:10:00|Smoothie Stop|Fruit Paradise|40.00
+2021-05-06|11:55:00|Lunch Special|Café Bistro|-25.00
+2019-07-05|12:30:00|Bakery Splurge|Bakery Bliss|30.00
+2019-07-08|15:10:00|Dinner Date|Foodie Haven|-15.00
+2018-02-11|09:30:00|Dessert Heaven|Sweet Delights|60.00
+2018-02-15|16:00:00|Cheese and Wine|Vineyard Vistas|-35.00
+2018-06-27|10:40:00|Healthy Snacking|Nutrition Nook|20.00
+2018-06-30|11:25:00|Street Food Fiesta|Food Cart|-10.00
+2022-08-25|08:00:00|Brunch Special|Morning Bite|20.00
+2022-08-30|10:30:00|Tapas Night|Tapas Café|-10.00
+2018-06-27|10:40:00|Gourmet Picnic|Picnic Provisions|20.00
+2018-06-30|11:25:00|Food Festival|Food Fest|-10.00
+2022-11-05|11:00:00|Gourmet Dinner|Gourmet Eats|70.00
+2022-11-10|15:40:00|Healthy Salad|Green Bites|-30.00
+2018-06-27|10:40:00|Food Truck Lunch|Street Eats|20.00
+2018-06-30|11:25:00|Taco Tuesday|Taco Express|-10.00
+2019-01-10|08:45:00|Artisan Coffee|Coffee Art|70.00
+2019-01-14|13:20:00|Bistro Dinner|Bistro Bliss|-30.00
+2022-11-05|11:00:00|Foodie Adventure|Food Expedition|70.00
+2022-11-10|15:40:00|Gourmet Delight|Gourmet Grub|-30.00
+2021-12-17|13:45:00|Foodie Experience|Food Junction|60.00
+2021-12-20|16:15:00|Italian Dinner|Italian Bistro|-35.00
+2021-05-03|10:10:00|Frozen Yogurt|Sweet Swirls|40.00
+2021-05-06|11:55:00|Lunch Special|Café Bistro|-25.00
+2020-03-19|09:20:00|Brunch Feast|Brunch Café|50.00
+2020-03-22|14:00:00|Coffee Break|Coffee Stop|-20.00
+2021-05-03|10:10:00|Frozen Yogurt|Sweet Swirls|40.00
+2021-05-06|11:55:00|Lunch Special|Café Bistro|-25.00
+2019-01-10|08:45:00|Artisan Coffee|Coffee Art|70.00
+2019-01-14|13:20:00|Bistro Dinner|Bistro Bliss|-30.00
+2017-10-07|08:50:00|Food Truck Delight|Tasty Tacos|40.00
+2017-10-10|14:15:00|Gourmet Pizza|Pizza Perfection|-25.00
+2023-10-01|08:30:00|Sushi Night|Sushi Delight|50.00
+2023-10-03|12:15:00|Coffee and Croissant|Café Latte|-25.00
+2023-09-15|09:45:00|Farmers' Market Haul|Fresh Harvest|30.00
+2023-09-20|14:20:00|Food Truck Delight|Tasty Tacos|-15.00
+2016-05-14|13:35:00|Ice Cream Treat|Sweet Scoops|15.00
+2016-05-17|10:05:00|Gourmet Sandwich|The Sandwich Spot|-20.00
+2021-05-03|10:10:00|Smoothie Stop|Fruit Paradise|40.00
+2021-05-06|11:55:00|Lunch Special|Café Bistro|-25.00
+2019-07-05|12:30:00|Bakery Splurge|Bakery Bliss|30.00
+2019-07-08|15:10:00|Dinner Date|Foodie Haven|-15.00
+2018-02-11|09:30:00|Dessert Heaven|Sweet Delights|60.00
+2018-02-15|16:00:00|Cheese and Wine|Vineyard Vistas|-35.00

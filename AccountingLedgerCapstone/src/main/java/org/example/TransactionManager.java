@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Scanner;
 
 public class TransactionManager {
     private static final String TRANSACTION_FILE = "src/main/resources/transactions.txt";
@@ -47,6 +48,70 @@ public class TransactionManager {
             System.out.println("Transaction added successfully");
         } catch (IOException ex) {
             System.out.println("Error adding deposit: " + ex.getMessage());
+        }
+    }
+
+    public void addDeposit() {
+        boolean isDisplayingDepositScreen = true;
+        Scanner scnr = new Scanner(System.in);
+
+        while (isDisplayingDepositScreen) {
+            try {
+                System.out.println("Please enter the following information to add a deposit: ");
+
+                System.out.println("Date (yyyy-mm-dd): ");
+                String date = scnr.nextLine();
+
+                System.out.println("Time (hh:mm:ss): ");
+                String time = scnr.nextLine();
+
+                System.out.println("Description: ");
+                String description = scnr.nextLine();
+
+                System.out.println("Vendor: ");
+                String vendor = scnr.nextLine();
+
+                System.out.println("Amount: ");
+                double amount = scnr.nextDouble();
+
+                addTransaction(date, time, description, vendor, amount, true);
+
+                isDisplayingDepositScreen = false;
+            } catch (Exception ex) {
+                System.out.println("You can't do that!");
+            }
+        }
+    }
+
+    public void makePayment() {
+        boolean isDisplayingDepositScreen = true;
+        Scanner scnr = new Scanner(System.in);
+
+        while (isDisplayingDepositScreen) {
+            try {
+                System.out.println("Please enter the following information to add a payment: ");
+
+                System.out.println("Date (yyyy-mm-dd): ");
+                String date = scnr.nextLine();
+
+                System.out.println("Time (hh-mm-ss): ");
+                String time = scnr.nextLine();
+
+                System.out.println("Description: ");
+                String description = scnr.nextLine();
+
+                System.out.println("Vendor: ");
+                String vendor = scnr.nextLine();
+
+                System.out.println("Amount: ");
+                double amount = scnr.nextDouble();
+
+                addTransaction(date, time, description, vendor, amount, false);
+
+                isDisplayingDepositScreen = false;
+            } catch (Exception ex) {
+                System.out.println("You can't do that!");
+            }
         }
     }
 
