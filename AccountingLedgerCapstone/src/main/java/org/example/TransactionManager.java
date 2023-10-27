@@ -1,76 +1,133 @@
 package org.example;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class TransactionManager {
-    public ArrayList<Transaction> transactions = new ArrayList<>();
-    Scanner scanner = new Scanner(System.in);
+    private static final String TRANSACTION_FILE = "src/main/resources/transactions.txt";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String TIME_FORMAT = "HH:mm:ss";
+    private ArrayList<Transaction> transactions = new ArrayList<>();
 
-    private void AddDeposit(){
-        System.out.println("Enter the date (yyyy-MM-dd): ");
-        String date = scanner.nextLine();
-        System.out.println("Enter the time (HH:mm:ss): ");
-        String time = scanner.nextLine();
-        System.out.println("Enter the description: ");
-        String description = scanner.nextLine();
-        System.out.println("Enter the vendor: ");
-        String vendor = scanner.nextLine();
-        System.out.println("Enter the amount: ");
-        double amount = scanner.nextDouble();
-        scanner.nextLine();
 
-        transactions.add(new Transaction(date, time, description, vendor, amount));
-        System.out.println("Deposit added successfully!");
+    public void addTransaction(String date, String time, String description, String vendor, double amount, boolean isDeposit) {
+        if (!isValidDateFormat(date)) {
+            System.out.println("Invalid date format. Please use 'yyyy-mm-dd'");
+            return;
+        }
+
+        if (!isValidTimeFormat(time)) {
+            System.out.println("Invalid time format. Please use 'hh:mm:ss'");
+            return;
+        }
+
+        if (amount == 0) {
+            System.out.println("Invalid deposit amount. Amount cannot be zero");
+            return;
+        }
+
+        if (description.trim().isEmpty() || vendor.trim().isEmpty()) {
+            System.err.println("Description and vendor cannot be empty.");
+            return;
+        }
+
+        if (!isDeposit) {
+            amount = -amount;
+        }
+
+        Transaction deposit = new Transaction(date, time, description, vendor, amount);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TRANSACTION_FILE, true))) {
+            writer.write(deposit.toString());
+            writer.newLine();
+            System.out.println("Transaction added successfully");
+        } catch (IOException ex) {
+            System.out.println("Error adding deposit: " + ex.getMessage());
+        }
     }
 
-    private void MakePayment(Transaction payment) {
-        System.out.println("Making Payment");
-        System.out.println("Enter the date (yyyy-MM-dd): ");
-        String date = scanner.nextLine();
-        System.out.println("Enter the time (HH:mm:ss): ");
-        String time = scanner.nextLine();
-        System.out.println("Enter the description: ");
-        String description = scanner.nextLine();
-        System.out.println("Enter the vendor: ");
-        String vendor = scanner.nextLine();
-        System.out.println("Enter the amount: ");
-        double amount = scanner.nextDouble();
-        scanner.nextLine();
 
-        transactions.add(new Transaction(date, time, description, vendor, amount));
-        System.out.println("Payment added successfully.");
+    private boolean isValidDateFormat(String date) {
+        try {
+            LocalDate.parse(date);
+            return true;
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
     }
 
-    public ArrayList<Transaction> LoadTransactions(){
-        ArrayList<Transaction> transactions = new ArrayList<>();
+    private boolean isValidTimeFormat(String time){
+            try {
+                LocalTime.parse(time);
+                return true;
+            }
+            catch(DateTimeParseException ex){
+                return false;
+            }
+    }
+
+    public List<Transaction> getAllTransactions(){
+        return readTransactionsFromFile();
+    }
+
+    public List<Transaction> getDeposits(){
+        List<Transaction> allTransactions = readTransactionsFromFile();
+        List<Transaction> deposits = new ArrayList<>();
+
+        for (Transaction transaction : allTransactions){
+            if(transaction.getAmount() > 0){
+                deposits.add(transaction);
+            }
+        }
+        return deposits;
+    }
+
+    public List<Transaction> getPayments(){
+        List<Transaction> allTransactions = readTransactionsFromFile();
+        List<Transaction> payments = new ArrayList<>();
+
+        for (Transaction transaction : allTransactions){
+            if(transaction.getAmount() < 0){
+                payments.add(transaction);
+            }
+        }
+        return payments;
+    }
+
+    public List<Transaction> readTransactionsFromFile(){
+        transactions.clear();
 
         try{
-            FileInputStream fis = new FileInputStream("src/main/resources/transactions.csv");
+            BufferedReader reader =  new BufferedReader(new FileReader(TRANSACTION_FILE));
 
-            Scanner scnr = new Scanner(fis);
-            scnr.nextLine();
+            String line;
+            while((line = reader.readLine()) != null){
+                String[] parts = line.split("\\|");
+                if(parts.length == 5){
+                    String date = parts[0];
+                    String time = parts[1];
+                    String description = parts[2];
+                    String vendor = parts[3];
+                    double amount = Double.parseDouble(parts[4]);
 
-            String input;
-            while(scnr.hasNextLine()){
-                input = scnr.nextLine();
-                String[] rowArray = input.split("\\|");
-
-                Transaction transaction = new Transaction(rowArray[0], rowArray[1], rowArray[2], rowArray[3], Double.parseDouble(rowArray[4]));
-
-                transactions.add(transaction);
+                    Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                    transactions.add(transaction);
+                }
             }
-
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error reading file");
         }
-        catch(FileNotFoundException ex){
-            System.out.println("Transaction file was not found");
-        }
-
         return transactions;
     }
-
 }
+
+
+
+
+

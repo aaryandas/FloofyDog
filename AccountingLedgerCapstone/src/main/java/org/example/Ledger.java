@@ -1,56 +1,33 @@
 package org.example;
 
-import javax.xml.transform.TransformerConfigurationException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
-
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Ledger {
-    private ArrayList<Transaction> transactions;
 
-    public Ledger(ArrayList<Transaction> transactions) {
-        this.transactions = transactions;
-    }
+    public void displayLedger(ArrayList<Transaction> transactions) {
 
-    public void displayLedger(){
-        for(Transaction transaction : transactions){
-            System.out.println(transaction);
+        Comparator<Transaction> dateComparator = new Comparator<Transaction>(){
+            @Override
+            public int compare(Transaction t1, Transaction t2){
+                LocalDate date1 = LocalDate.parse(t1.getDate());
+                LocalDate date2 = LocalDate.parse(t2.getDate());
+
+                return date1.compareTo(date2);
+            }
+        };
+        Collections.sort(transactions, dateComparator);
+
+        if(transactions.isEmpty()){
+            System.out.println("No transactions to display");
         }
-    }
-
-    public void displayAll(){
-        for(Transaction transaction : transactions){
-            System.out.println(transaction);
-        }
-    }
-
-    public void displayDeposits(){
-        for(Transaction transaction : transactions){
-            if(transaction.getAmount() > 0){
+        else{
+            System.out.println("**********TRANSACTION LEDGER**********");
+            for(Transaction transaction : transactions){
                 System.out.println(transaction);
             }
         }
     }
-
-    public void displayPayments(){
-        for(Transaction transaction : transactions){
-            if(transaction.getAmount() < 0){
-                System.out.println(transaction);
-            }
-        }
-    }
-
-    public void displayReports(String customSearch){
-        System.out.println("Custom Search Results: ");
-        for(int i = transactions.size() - 1; i >= 0; i--){
-            Transaction transaction = transactions.get(i);
-            if(transaction.getDescription().toLowerCase().contains(customSearch.toLowerCase())){
-                System.out.println(transaction);
-            }
-        }
-    }
-
-
 }
-
-

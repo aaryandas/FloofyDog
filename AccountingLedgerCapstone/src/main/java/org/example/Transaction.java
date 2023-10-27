@@ -1,14 +1,11 @@
 package org.example;
 
-public class Transaction {
 
+
+public class Transaction {
     private String date;
     private String time;
     private String description;
-
-
-
-
     private String vendor;
     private double amount;
 
@@ -19,6 +16,7 @@ public class Transaction {
         this.vendor = vendor;
         this.amount = amount;
     }
+
     public String getDate() {
         return date;
     }
@@ -58,4 +56,10 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+    }
+
 }
