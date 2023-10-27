@@ -1,16 +1,14 @@
 package org.example;
 
-import java.sql.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
 public class UserInterface {
-    private TransactionManager transactionManager = new TransactionManager();
     private Ledger ledger = new Ledger();
+    private TransactionManager transactionManager = new TransactionManager();
+    private Report report = new Report();
 
+    //ALL DISPLAY SCREENS BELOW
     public void homeScreen(){
 
         boolean isDisplaying = true;
@@ -62,69 +60,6 @@ public class UserInterface {
         System.out.println("0) Exit application");
     }
 
-    private void addDeposit() {
-        boolean isDisplayingDepositScreen = true;
-        Scanner scnr = new Scanner(System.in);
-
-        while (isDisplayingDepositScreen) {
-            try {
-                System.out.println("Please enter the following information to add a deposit: ");
-
-                System.out.println("Date (yyyy-mm-dd): ");
-                String date = scnr.nextLine();
-
-                System.out.println("Time (hh:mm:ss): ");
-                String time = scnr.nextLine();
-
-                System.out.println("Description: ");
-                String description = scnr.nextLine();
-
-                System.out.println("Vendor: ");
-                String vendor = scnr.nextLine();
-
-                System.out.println("Amount: ");
-                double amount = scnr.nextDouble();
-
-                transactionManager.addTransaction(date, time, description, vendor, amount, true);
-
-                isDisplayingDepositScreen = false;
-            } catch (Exception ex) {
-                System.out.println("You can't do that!");
-            }
-        }
-    }
-    private void makePayment() {
-        boolean isDisplayingDepositScreen = true;
-        Scanner scnr = new Scanner(System.in);
-
-        while (isDisplayingDepositScreen) {
-            try {
-                System.out.println("Please enter the following information to add a payment: ");
-
-                System.out.println("Date (yyyy-mm-dd): ");
-                String date = scnr.nextLine();
-
-                System.out.println("Time (hh-mm-ss): ");
-                String time = scnr.nextLine();
-
-                System.out.println("Description: ");
-                String description = scnr.nextLine();
-
-                System.out.println("Vendor: ");
-                String vendor = scnr.nextLine();
-
-                System.out.println("Amount: ");
-                double amount = scnr.nextDouble();
-
-                transactionManager.addTransaction(date, time, description, vendor, amount, false);
-
-                isDisplayingDepositScreen = false;
-            } catch (Exception ex) {
-                System.out.println("You can't do that!");
-            }
-        }
-    }
-
     private void displayLedger() {
         Scanner scnr = new Scanner(System.in);
         while (true) {
@@ -159,6 +94,7 @@ public class UserInterface {
             }
         }
     }
+
     private void displayReports() {
         boolean isDisplayingReports = true;
         Scanner scnr = new Scanner(System.in);
@@ -171,6 +107,7 @@ public class UserInterface {
             System.out.println("3) Year to Date");
             System.out.println("4) Previous Year");
             System.out.println("5) Search by Vendor");
+            System.out.println("6) Custom Search");
             System.out.println("0) Back to Ledger");
 
             int reportChoice = scnr.nextInt();
@@ -192,6 +129,9 @@ public class UserInterface {
                 case 5:
                     displaySearchByVendorReport();
                     break;
+                case 6:
+                    displayCustomSearch();
+                    break;
                 case 0:
                     isDisplayingReports = false;
                     break;
@@ -201,121 +141,50 @@ public class UserInterface {
         }
     }
 
+
+    //ALL METHODS BELOW
+    private void addDeposit(){
+        transactionManager.addDeposit();
+    }
+    private void makePayment(){
+        transactionManager.makePayment();
+    }
+
     private void displayAllTransactions() {
-        // Read and display all transactions from the CSV file
-        ArrayList<Transaction> allTransactions = new ArrayList<>(transactionManager.getAllTransactions());
-        ledger.displayLedger(allTransactions);
+        ledger.allTransactions();
     }
 
-    private void displayDeposits() {
-        // Read and display deposit transactions from the CSV file
-        ArrayList<Transaction> deposits = new ArrayList<>(transactionManager.getDeposits());
-        ledger.displayLedger(deposits);
+    private void displayDeposits(){
+        ledger.deposits();
     }
 
-    private void displayPayments() {
-        // Read and display payment transactions from the CSV file
-        ArrayList<Transaction> payments = new ArrayList<>(transactionManager.getPayments());
-        ledger.displayLedger(payments);
+    private void displayPayments(){
+        ledger.payments();
     }
 
-    private void displayMonthToDateReport() {
-        LocalDate currentDate = LocalDate.now();
-        int currentYear = currentDate.getYear();
-        int currentMonth = currentDate.getMonthValue();
-
-        // Filter transactions for the current month
-        List<Transaction> transactions = transactionManager.getAllTransactions();
-        ArrayList<Transaction> filteredTransactions = new ArrayList<>();
-
-        for (Transaction transaction : transactions) {
-            LocalDate transactionDate = LocalDate.parse(transaction.getDate());
-            int transactionYear = transactionDate.getYear();
-            int transactionMonth = transactionDate.getMonthValue();
-
-            if (transactionYear == currentYear && transactionMonth == currentMonth) {
-                filteredTransactions.add(transaction);
-            }
-        }
-        ledger.displayLedger(filteredTransactions);
+    private void displayMonthToDateReport(){
+        report.monthToDateReport();
     }
 
-    private void displayPreviousMonthReport() {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate firstDayOfCurrentMonth = currentDate.withDayOfMonth(1);
-        LocalDate firstDayOfPreviousMonth = firstDayOfCurrentMonth.minusMonths(1);
-
-        // Filter transactions for the previous month
-        List<Transaction> transactions = transactionManager.getAllTransactions();
-        ArrayList<Transaction> previousMonthTransactions = new ArrayList<>();
-
-        for (Transaction transaction : transactions) {
-            LocalDate transactionDate = LocalDate.parse(transaction.getDate());
-            if (transactionDate.isAfter(firstDayOfPreviousMonth) && transactionDate.isBefore(firstDayOfCurrentMonth)) {
-                previousMonthTransactions.add(transaction);
-            }
-        }
-        ledger.displayLedger(previousMonthTransactions);
+    private void displayPreviousMonthReport(){
+        report.previousMonthReport();
     }
 
-    private void displayYearToDateReport() {
-        // Calculate and display transactions for the current year
-        LocalDate currentDate = LocalDate.now();
-        int currentYear = currentDate.getYear();
-
-        // Filter transactions for the current year
-        List<Transaction> transactions = transactionManager.getAllTransactions();
-        ArrayList<Transaction> currentYearTransactions = new ArrayList<>();
-
-        for (Transaction transaction : transactions) {
-            LocalDate transactionDate = LocalDate.parse(transaction.getDate());
-            int transactionYear = transactionDate.getYear();
-
-            if (transactionDate.getYear() == currentDate.getYear()) {
-                currentYearTransactions.add(transaction);
-            }
-        }
-        ledger.displayLedger(currentYearTransactions);
+    private void displayYearToDateReport(){
+        report.yearToDateReport();
     }
 
-    private void displayPreviousYearReport() {
-        // Calculate and display transactions for the previous year
-        // Get the current date
-        LocalDate currentDate = LocalDate.now();
-
-        // Calculate the first day of the current year
-        LocalDate firstDayOfCurrentYear = LocalDate.of(currentDate.getYear(), 1, 1);
-
-        // Calculate the first day of the previous year
-        LocalDate firstDayOfPreviousYear = firstDayOfCurrentYear.minusYears(1);
-
-        // Filter transactions for the previous year
-        ArrayList<Transaction> transactions = new ArrayList<>(transactionManager.getAllTransactions());
-        ArrayList<Transaction> previousYearTransactions = new ArrayList<>();
-
-        for (Transaction transaction : transactions) {
-            LocalDate transactionDate = LocalDate.parse(transaction.getDate());
-            if (transactionDate.isAfter(firstDayOfPreviousYear) && transactionDate.isBefore(firstDayOfCurrentYear)) {
-                previousYearTransactions.add(transaction);
-            }
-        }
-        ledger.displayLedger(previousYearTransactions);
+    private void displayPreviousYearReport(){
+        report.previousYearReport();
     }
 
-    private void displaySearchByVendorReport() {
-        Scanner scnr = new Scanner(System.in);
-        System.out.println("Enter vendor name to search:");
-        String vendorName = scnr.nextLine();
-
-        // Retrieve and display transactions filtered by the vendor name
-        List<Transaction> transactions = transactionManager.getAllTransactions();
-        ArrayList<Transaction> vendorTransactions = new ArrayList<>();
-
-        for (Transaction transaction : transactions) {
-            if (transaction.getVendor().equalsIgnoreCase(vendorName)) {
-                vendorTransactions.add(transaction);
-            }
-        }
-        ledger.displayLedger(vendorTransactions);
+    private void displaySearchByVendorReport(){
+        report.searchByVendorReport();
     }
+
+    private void displayCustomSearch(){
+        report.customSearchReport();
+    }
+
+
 }
