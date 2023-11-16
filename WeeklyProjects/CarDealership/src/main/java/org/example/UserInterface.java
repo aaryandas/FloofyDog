@@ -1,5 +1,6 @@
 package org.example;
 
+import java.rmi.dgc.Lease;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.List;
@@ -29,6 +30,7 @@ public class UserInterface {
             System.out.println("8. Add a vehicle");
             System.out.println("9. Remove a vehicle");
             System.out.println("0. Exit dealership");
+            System.out.println("99. Admin Screen");
 
             try {
                 int userInput = scnr.nextInt();
@@ -66,6 +68,9 @@ public class UserInterface {
                     case 0:
                         DealershipFileManager.saveDealership(dealership);
                         System.exit(0);
+                        break;
+                    case 99:
+                        AdminUserInterface.display();
                         break;
                     default:
                         System.out.println("Invalid option, please try again");
@@ -315,6 +320,51 @@ public class UserInterface {
     private void displayVehicles(List<Vehicle> vehicles){
         for(Vehicle vehicle : vehicles){
             System.out.println(vehicle.toString());
+        }
+    }
+
+    private void processAddContractRequest(){
+        boolean isDisplaying = true;
+
+        while(isDisplaying){
+            try{
+                Scanner scnr = new Scanner(System.in);
+
+                System.out.println("Please enter the date of the contract: ");
+                String date = scnr.nextLine();
+
+                System.out.println("Please enter the customer name: ");
+                String customerName = scnr.nextLine();
+
+                System.out.println("Please enter the customer email: ");
+                String customerEmail = scnr.nextLine();
+
+                System.out.println("Please enter the VIN of the vehicle: ");
+                int vin = scnr.nextInt();
+                scnr.nextLine();
+
+                Vehicle vehicle = findVehicleByVin(vin);
+
+                if(vehicle != null){
+                    Contract contract = createContract(date, customerName, customerEmail, vehicle);
+                }
+
+            }
+        }
+    }
+
+    private Contract createContract(String date, String customerName, String customerEmail, Vehicle vehicle) {
+        System.out.println("Enter 'S' for sales contract or 'L' for lease contract");
+        Scanner scnr = new Scanner(System.in);
+        String contractType = scnr.nextLine().toUpperCase();
+
+        if (contractType.equalsIgnoreCase("S")) {
+            return new SalesContract(date, customerName, customerEmail, vehicle);
+        } else if (contractType.equalsIgnoreCase("L")) {
+            return new LeaseContract(date, customerName, customerEmail, vehicle);
+        } else {
+            System.out.println("Invalid contract type. Please try again");
+            return null;
         }
     }
 }
